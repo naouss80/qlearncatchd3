@@ -3,8 +3,7 @@ A simple game of catch using QLearning
 
 ## Intro
 
-This is a very simplified start to Qlearning using docker inspired by farizrahman4u
-More details on the logic on https://github.com/farizrahman4u/qlearning4k
+This is a very simplified start to Qlearning using docker inspired by [farizrahman4u link](https://github.com/farizrahman4u/qlearning4k).
 
 ### Requirements
 Please install docker on your Unix based or Windows 10 machine.
