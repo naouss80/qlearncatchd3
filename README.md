@@ -3,7 +3,7 @@ A simple game of catch using QLearning
 
 ## Intro
 
-This is a very simplified start to Qlearning using docker inspired by @farizrahman4u
+This is a very simplified start to Qlearning using docker inspired by farizrahman4u
 More details on the logic on https://github.com/farizrahman4u/qlearning4k
 
 ### Requirements
@@ -27,6 +27,7 @@ docker run -it -p 80:80 -p 2814:2814 viz_server node viz_server.js debug
 ## 2 - Open the browser
 Go to `localhost`
 You should see the following
+![alt text](https://github.com/naouss80/qlearncatchd3/raw/master/images/start_window.PNG)
 
 ## 3 - Get local IP addres and build-run the qlearning app
 Get IP adddress for [windows link](https://kb.wisc.edu/page.php?id=27309) with `ipconfig /all`.
