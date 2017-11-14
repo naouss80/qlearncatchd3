@@ -46,5 +46,11 @@ docker build -t qlearnin qlearn_container
 docker run -it qlearnin python test_catch.py Catch 10.227.40.281 debug with_node 1000
 ```
 
+There are 4 games:
+* `Catch`: The basket should catch a fruit falling linearly
+* `CatchReverse`: The basket should avoid the fruit linearly
+* `CatchRandom`: The basket should catch a fruit falling randomly
+* `CatchRandomReverse`: The basket should avoid a fruit falling randomly
+
 ## 4 - Go back to browser
 Go back to the browser and see the training process
