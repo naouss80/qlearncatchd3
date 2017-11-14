@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Examples of D3 transitions</title>
+		<style>
+			svg {
+				border: 1px solid black;
+			}
+			fieldset {
+				min-width: 0; 
+				width: 50%; 
+			}
+		</style>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script>				
+				function removeTransitions(){
+					// d3.select("path").transition().attr("d", "M0,0 l50,13 l-25,25 Z").attr("transform", "translate(350, 75)").style("fill", "white");
+					// removed the transition like on the item above
+					// d3.select("rect").attr("transform", "translate(0)").attr("width", 50).attr("height", 20).style("fill", "white");
+					// d3.select("circle").attr("transform", "translate(0)").attr("r", 25).style("fill", "white");
+				}
+				
+				function runTransitions(the_list){
+					
+					// var moveCheckboxSelected = d3.select("#move").property("checked");
+					// var sizeCheckboxSelected = d3.select("#size").property("checked");
+					// var colorCheckboxSelected = d3.select("#color").property("checked");
+					
+					// if(!moveCheckboxSelected && !sizeCheckboxSelected && !colorCheckboxSelected){
+					// 	return;
+					// }
+					
+					// var pathTransition = d3.select("path").transition();
+					var rectTransition = d3.select("rect").transition();
+					var circleTransition = d3.select("circle").transition();
+					
+					// if(moveCheckboxSelected){
+						// pathTransition.attr("transform", "translate(250, 50)").duration(1000);
+						rectTransition.attr("x", the_list[0][0]).attr("y", the_list[0][1]).duration(50);
+						circleTransition.attr("cx", the_list[1][0]).attr("cy", the_list[1][1]).duration(50);
+					// }
+					// if(sizeCheckboxSelected){
+					// 	// pathTransition.attr("d", "M0,0 l100,25 l-50,50 z").duration(1000);
+					// 	rectTransition.attr("width", "100").attr("height", "100").duration(1000);
+					// 	circleTransition.attr("r", "50").duration(1000);
+					// }
+					// if(colorCheckboxSelected){
+					// 	// pathTransition.style("fill", "red").duration(1000);
+					// 	rectTransition.style("fill", "blue").duration(1000);
+					// 	circleTransition.style("fill", "green").duration(1000);
+					// }
+				}
+
+				function rand_basket(){
+					var the_list = [Math.floor((Math.random() * 9) + 1)*30 - d3.select("#basket").property("width").baseVal.value/2,
+									d3.select("#the_box").property("height").baseVal.value - d3.select("#basket").property("height").baseVal.value ];
+					// console.log("the box lenght is :", d3.select("#the_box").property("height").baseVal.value);
+					return the_list
+				}
+				function rand_step(){
+					var the_x = Math.floor((Math.random() * 9) + 1)*30 + d3.select("#fruit").property("r").baseVal.value;
+					return the_x
+				}		
+				function update_text(){
+					document.getElementById("the_win").innerHTML = "Wins: " + the_win;
+				}	
+		</script>
+	</head>
+	<body>
+		<div id="simpleShapes" width="300" height="300px">
+			<!-- <svg width="50%" height="300"> -->
+			<svg id="the_box" width="300" height="300">
+				<!-- <path d="M0,0 l50,13 l-25,25 Z" stroke="red" fill="white" transform="translate(350,75)" /> -->
+				<rect id="basket" x="50" y="75" width="50" height="20" stroke="blue" fill="blue" />
+				<circle id="fruit" cx="225" cy="75" r="10" stroke="green" fill="green" />
+				<p id="the_win" align="left"><b>Wins: 0</b></p>
+
+			</svg>
+<!-- 			<div width="50%">
+				<fieldset>
+					<legend>Select the transition to apply</legend>
+					<input id="move" type="checkbox" name="move" value="move" />Move<br />
+					<input id="size" type="checkbox" name="size" value="size" />Size<br />
+					<input id="color" type="checkbox" name="color" value="color" />Color<br /><br />
+					<button onclick="runTransitions()">Run transitions</button>
+					<button onclick="removeTransitions()">Remove transitions</button>
+				</fieldset>
+			</div> -->
+		</div>
+	</body>
+<script>
+var the_step = 0;
+var the_position = rand_step();
+var the_win = 0;
+setInterval( function myFunc(){
+			  var the_list = [rand_basket(), [the_position, the_step*30 + d3.select("#fruit").property("r").baseVal.value ]];	
+  			  the_step++;  
+  			  if (the_step==10) {
+  			  	// console.log("The win is: ", the_win);
+  			  	// console.log("The win is: ", document.getElementById("the_win").value);
+  			  	the_step = 0;
+  			  	the_position = rand_step();
+  			  	the_win++;
+  			  }					  
+			  runTransitions(the_list);
+			  update_text();			  
+			 }
+		   , 100);
+
+var socket = io('http://localhost');
+socket.on('position', function (data) {
+	console.log(data);
+	// socket.emit('my other event', { my: 'data' });
+});
+
+
+</script>	
+</html>

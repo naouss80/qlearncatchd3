@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Examples of D3 transitions</title>
+		<style>
+			svg {
+				border: 1px solid black;
+			}
+			fieldset {
+				min-width: 0; 
+				width: 50%; 
+			}
+		</style>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script>
+				function runTransitions(the_list){
+					var rectTransition = d3.select("rect").transition();
+					var circleTransition = d3.select("circle").transition();
+					rectTransition.attr("x", the_list[0][0]).attr("y", the_list[0][1]).duration(10);
+					circleTransition.attr("cx", the_list[1][0]).attr("cy", the_list[1][1]).duration(10);
+				}		
+
+				function update_text_node(node_data){
+					// This function updates the text text after every epoch: Wins & Loses					
+					document.getElementById("the_win").innerHTML = "The Games: " + node_data['epoch'] + " | Wins: " + node_data['win_count']
+																	+ "<br/>Last 100 win rate " + Math.round(node_data['last_100']*100) + "%"
+																	+ "<br/>Last 20 win rate " + Math.round(node_data['last_20']*100) + "%";
+				}					
+
+				function node_basket(node_data){
+					// This function extracts the 
+					var the_list = [node_data['basket'] * the_multiplier - d3.select("#basket").property("width").baseVal.value/2,
+									d3.select("#the_box").property("height").baseVal.value - d3.select("#basket").property("height").baseVal.value ];
+					return the_list;
+				}	
+
+				function node_fruit(node_data){
+					var the_list = [node_data['fruit_col'] * the_multiplier + d3.select("#fruit").property("r").baseVal.value,
+									node_data['fruit_row'] * the_multiplier + d3.select("#fruit").property("r").baseVal.value];
+					return the_list;
+				}
+
+		</script>
+	</head>
+	<body>
+		<div id="simpleShapes" width="300" height="300">
+			<svg id="the_box" width="300" height="300">
+				<rect id="basket" x="50" y="75" width="50" height="20" stroke="blue" fill="blue" />
+				<circle id="fruit" cx="225" cy="75" r="10" stroke="green" fill="green" />
+				<p id="the_win" align="left">The Games: 0 | Wins: 0<br/>Last 100 win rate 0%<br/>Last 20 win rate 0%</p>
+			</svg>
+		</div>
+	</body>
+<script>
+var the_step = 0;
+var the_win = 0;
+var the_multiplier = d3.select("#the_box").property("width").baseVal.value/10
+var socket = io('http://localhost');
+socket.on('position', function (data) {
+	console.log(data);
+	var node_data = JSON.parse(data);
+	var the_list = [node_basket(node_data), 
+					node_fruit(node_data)];
+	runTransitions(the_list);
+	update_text_node(node_data);
+});
+
+
+</script>	
+</html>
