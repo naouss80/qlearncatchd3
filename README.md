@@ -54,3 +54,6 @@ There are 4 games:
 
 ## 4 - Go back to browser
 Go back to the browser and see the training process
+
+
+![alt text](https://github.com/naouss80/qlearncatchd3/raw/master/images/catch_game.gif)
