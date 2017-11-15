@@ -79,11 +79,6 @@ class Catch(Game):
 
 class CatchReverse(Catch):
 
-	def __init__(self, grid_size=10):
-		self.grid_size = grid_size
-		self.won = False
-		self.reset()
-
 	@property
 	def name(self):
 		return "CatchReverse"	
@@ -104,11 +99,6 @@ class CatchReverse(Catch):
 		return fruit_row == self.grid_size-1 and abs(fruit_col - basket) > 1		
 
 class CatchRandom(Catch):
-
-	def __init__(self, grid_size=10):
-		self.grid_size = grid_size
-		self.won = False
-		self.reset()
 
 	@property
 	def name(self):
@@ -141,11 +131,6 @@ class CatchRandom(Catch):
 
 
 class CatchRandomReverse(CatchRandom):
-
-	def __init__(self, grid_size=10):
-		self.grid_size = grid_size
-		self.won = False
-		self.reset()
 
 	@property
 	def name(self):
