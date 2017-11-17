@@ -15,7 +15,7 @@ To run this, do the following
 ## 1 - Clone and build-run the viz server
 ```Bash
 # a- clone the container
-git clone 
+git clone https://github.com/naouss80/qlearncatchd3.git
 # b- access the folder
 cd qlearncatchd3
 # build the container
