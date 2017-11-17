@@ -17,7 +17,9 @@ To run this, do the following
 # clone the container
 git clone https://github.com/naouss80/qlearncatchd3.git
 # access the folder
-cd qlearncatchd3
+cd qlearncatchd3/
+# acces the viz server folder
+cd node_container
 # build the container
 docker build -t viz_server node_container
 # run the container
@@ -38,6 +40,8 @@ An example of this can be 10.227.40.281
 Open another command line window
 ```Bash
 # assuming one is still in the repository folder 
+# access the qlearning container
+cd qlearn_container
 # build the container qlearncatchd3
 docker build -t qlearnin qlearn_container
 # run the container
